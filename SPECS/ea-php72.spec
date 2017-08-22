@@ -2,7 +2,7 @@
 # NOTE: pkg variable is a hack to fix invalid macro inside of macros.php
 %global ns_name ea
 %global ns_dir /opt/cpanel
-%global pkg php71
+%global pkg php72
 
 # Force Software Collections on
 %global _scl_prefix %{ns_dir}
@@ -22,7 +22,7 @@
 %global _hardened_build 1
 
 # version used for php embedded library soname
-%global embed_version 7.1
+%global embed_version 7.2
 
 # Ugly hack. Harcoded values to avoid relocation.
 %global _httpd_mmn         %(cat %{_root_includedir}/apache2/.mmn 2>/dev/null || echo missing-ea-apache24-devel)
@@ -141,9 +141,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.7
+Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1.beta3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -152,7 +152,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}beta3.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -939,7 +939,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} mcrypt=%{with_mcrypt} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}
+%setup -q -n php-%{version}beta3
 
 %patch7 -p1 -b .recode
 %patch42 -p1 -b .systzdata
@@ -1795,116 +1795,5 @@ fi
 
 
 %changelog
-* Tue Jul 25 2017 Dan Muey <dan@cpanel.net> - 7.1.7-1
-- EA-6574: Make permissions on FPM socket dir more secure
-
-* Thu Jul 06 2017 Cory McIntire <cory@cpanel.net> - 7.1.7-1
-- Updated to version 7.1.7 via update_pkg.pl (EA-6518)
-
-* Wed Jun 28 2017 Dan Muey <dan@cpanel.net> - 7.1.6-3
-- EA-6484: Clarify Summary and Description for DSO
-
-* Thu Jun 22 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.6-2
-- EA-6232: Build -curl with HTTP/2 support
-
-* Thu Jun 08 2017 Cory McIntire <cory@cpanel.net> - 7.1.6-1
-- Updated to version 7.1.6 via update_pkg.pl (EA-6372)
-
-* Wed May 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-3
-- EA-6292: Switch libxml2 to OS provided libraries
-
-* Tue May 16 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-2
-- EA-6282: Swapped ea-php## symlinks to match EasyApache 3 compatibility
-
-* Thu May 11 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-1
-- Updated to version 7.1.5 via update_pkg.pl (EA-6271)
-
-* Tue May 09 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.4-5
-- Switch libxml2 to cPanel distributed packages
-
-* Mon May 08 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.4-4
-- EA-6063: Add ea-php71 binary symlinks to /usr/bin and /usr/local/bin
-
-* Tue Apr 25 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.4-3
-- Disable dtrace functionality since CentOS does not provide dtrace via repos.
-
-* Fri Apr 21 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.4-2
-- EA-6203: Correct OpCache blacklist directory
-
-* Thu Apr 13 2017 Charan Angara <charan@cpanel.net> - 7.1.4-1
-- Updated to version 7.1.4 via update_pkg.pl (EA-6149)
-
-* Thu Mar 16 2017 Daniel Muey <dan@cpanel.net> - 7.1.3-1
-- Updated to version 7.1.3 via update_pkg.pl (EA-6079)
-
-* Thu Mar 09 2017 Cory McIntire <cory@cpanel.net> - 7.1.2-4
-- ZC-2475: PHPs need build reqs when building for libcurl
-
-* Wed Mar 08 2017 Cory McIntire <cory@cpanel.net> - 7.1.2-3
-- EA-2422: Have PHPs use our ea-libcurl
-
-* Fri Feb 24 2017 Dan Muey <dan@cpanel.net> - 7.1.2-2
-- EA-6008: remove bz2 and calendar from common’s Provides
-
-* Fri Feb 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.2-1
-- Updated to version 7.1.2 via update_pkg.pl (EA-5998)
-
-* Mon Feb 06 2017 Dan Muey <dan@cpanel.net> - 7.1.1-4
-- EA-5946: force requirement of ea-libtidy instead of .so from BuildRequires ea-libtidy-devel
-
-* Fri Feb 03 2017 Dan Muey <dan@cpanel.net> - 7.1.1-3
-- EA-5839: Add opcache.validate_permission to opcache ini
-
-* Mon Jan 30 2017 Dan Muey <dan@cpanel.net> - 7.1.1-2
-- EA-5807: enable php-tidy on rhel 6 and above
-
-* Thu Jan 19 2017 Daniel Muey <dan@cpanel.net> - 7.1.1-1
-- Updated to version 7.1.1 via update_pkg.pl (EA-5876)
-
-* Thu Dec 14 2016 Dan Muey <dan@cpanel.net> - 7.1.0-14
-- EA-5784: Remove no longer unused rcver
-
-* Fri Dec 09 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-13
-- Update for final PHP 7.1.0
-
-* Mon Dec 05 2016 Dan Muey <dan@cpanel.net> - 7.1.0-12.RC6
-- EA-3685: do not create apache user/group since we use nobody
-
-* Fri Nov 18 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-11.RC6
-- Fix erronous getpwnam message in php-fpm jailshell code
-
-* Fri Nov 18 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-10.RC6
-- Ensure the same extensions are compiled statically across all
-  SAPI types (EA-5587)
-
-* Thu Nov 17 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-9.RC6
-- Make php-cli require php-litespeed
-
-* Thu Nov 10 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-8.RC6
-- Updated to PHP 7.1 (release candidate 6) sources
-
-* Fri Oct 14 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-7.RC3
-- Updated to PHP 7.1 (release candidate 3) sources
-
-* Wed Sep 28 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-6.RC2
-- Set register_argc_argv default on to match EasyApache 3
-
-* Thu Sep 15 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-5.RC2
-- Updated to PHP 7.1 (release candidate 2) sources
-
-* Thu Sep 01 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-4.beta3
-- Changed php-fpm.d directory to 0710 (EA-5097)
-
-* Fri Aug 19 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-3.beta3
-- Updated to PHP 7.1 (beta3) sources
-
-* Tue Aug 09 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-2.beta1
-- Updated to PHP 7.1 (beta) sources
-- Added php imap support
-- Applied fpm and updated mail header patches
-
-* Wed Jul 13 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-alpha3
-
-* Mon Jun 27 2016 Daniel Muey <dan@cpanel.net> - 7.0.8-1
-- Updated to version 7.0.8 via update_pkg.pl (EA-4738)
-- Remove opcache check since it was removed in d41920c (EA-4755)
+* Tue Aug 22 2017 Dan Muey <dan@cpanel.net> - 7.2.0-1.beta3
+- ZC-2785: Initial packaging

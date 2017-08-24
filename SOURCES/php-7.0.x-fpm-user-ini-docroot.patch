@@ -1,7 +1,8 @@
-diff --git php-7.0.8/sapi/fpm/fpm/fpm_main.c php-7.0.8/sapi/fpm/fpm/fpm_main.c
---- php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-06-21 14:56:41.000000000 -0500
-+++ php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-07-11 08:47:24.737835793 -0500
-@@ -684,6 +684,9 @@
+diff --git a/sapi/fpm/fpm/fpm_main.c b/sapi/fpm/fpm/fpm_main.c
+index dd0269e..ee6c69c 100644
+--- a/sapi/fpm/fpm/fpm_main.c
++++ b/sapi/fpm/fpm/fpm_main.c
+@@ -685,6 +685,9 @@ static void php_cgi_ini_activate_user_config(char *path, int path_len, const cha
  
  	/* Check whether cache entry has expired and rescan if it is */
  	if (request_time > entry->expires) {
@@ -11,7 +12,7 @@ diff --git php-7.0.8/sapi/fpm/fpm/fpm_main.c php-7.0.8/sapi/fpm/fpm/fpm_main.c
  		char * real_path;
  		int real_path_len;
  		char *s1, *s2;
-@@ -712,6 +715,15 @@
+@@ -713,6 +716,15 @@ static void php_cgi_ini_activate_user_config(char *path, int path_len, const cha
  			s_len = path_len;
  		}
  

@@ -374,8 +374,8 @@ the %{?scl_prefix}php package and the php-cli package.
 %package devel
 Group: Development/Libraries
 Summary: Files needed for building PHP extensions
-Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}, automake
-Requires: autoconf >= 2.64
+Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}, autoconf, automake
+BuildRequires: autoconf >= 2.64
 %if %{with_pcre}
 Requires: pcre-devel%{?_isa} >= 8.20
 %endif

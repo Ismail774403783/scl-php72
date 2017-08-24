@@ -375,7 +375,6 @@ the %{?scl_prefix}php package and the php-cli package.
 Group: Development/Libraries
 Summary: Files needed for building PHP extensions
 Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}, autoconf, automake
-BuildRequires: autoconf >= 2.64
 %if %{with_pcre}
 Requires: pcre-devel%{?_isa} >= 8.20
 %endif
@@ -950,6 +949,9 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+
+# Deal with autoconf causing build errors
+perl -pi -e 's{2\.64}{2\.63}' build/ax_check_compile_flag.m4
 
 # Fixes for tests
 #%patch300 -p1 -b .datetests

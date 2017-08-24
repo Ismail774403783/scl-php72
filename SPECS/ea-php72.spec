@@ -72,8 +72,6 @@
 %endif
 %global with_curl     1
 %global libcurl_prefix /opt/cpanel/libcurl
-%global with_mcrypt    1
-%global mcrypt_prefix  /opt/cpanel/libmcrypt
 %if 0%{?fedora}
 %global with_interbase 1
 %else
@@ -820,21 +818,6 @@ Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 The %{?scl_prefix}php-dba package contains a dynamic shared object that will add
 support for using the DBA database abstraction layer to PHP.
 
-%if %{with_mcrypt}
-%package mcrypt
-Summary: Standard PHP module provides mcrypt library support
-Group: Development/Languages
-# All files licensed under PHP version 3.01
-License: PHP
-Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-Requires: %{ns_name}-libmcrypt
-BuildRequires: %{ns_name}-libmcrypt-devel
-
-%description mcrypt
-The %{?scl_prefix}php-mcrypt package contains a dynamic shared object that will add
-support for using the mcrypt library to PHP.
-%endif
-
 %if %{with_tidy}
 %package tidy
 Summary: Standard PHP module provides tidy library support
@@ -937,7 +920,7 @@ inside them.
 
 
 %prep
-: Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} mcrypt=%{with_mcrypt} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
+: Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
 %setup -q -n php-%{version}beta3
 
@@ -1233,9 +1216,6 @@ build --libdir=%{_libdir}/php \
 %endif
       --with-pspell=shared \
       --enable-phar=shared \
-%if %{with_mcrypt}
-      --with-mcrypt=shared,%{mcrypt_prefix} \
-%endif
 %if %{with_tidy}
       --with-tidy=shared,%{libtidy_prefix} \
 %endif
@@ -1469,9 +1449,6 @@ for mod in pgsql odbc ldap snmp xmlrpc imap \
     enchant \
 %endif
     phar fileinfo intl \
-%if %{with_mcrypt}
-    mcrypt \
-%endif
 %if %{with_tidy}
     tidy \
 %endif
@@ -1770,9 +1747,6 @@ fi
 %files gmp -f files.gmp
 %files dba -f files.dba
 %files pdo -f files.pdo
-%if %{with_mcrypt}
-%files mcrypt -f files.mcrypt
-%endif
 %if %{with_tidy}
 %files tidy -f files.tidy
 %endif

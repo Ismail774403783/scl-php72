@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2.beta3
+%define release_prefix 1.RC1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -150,7 +150,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}beta3.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}RC1.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -166,9 +166,6 @@ Source51: opcache-default.blacklist
 # Allow us to configure imap and recode at same time, but adjust conflicts
 # to prevent usage at same time.
 Patch7: php-5.3.0-recode.centos.patch
-
-# Use the system timezone database, instead of the one distributed by PHP
-Patch42: php-7.0.0-systzdata-v13.centos.patch
 
 # Prevent pear package from dragging in devel, which drags in a lot of
 # stuff for a production machine: https://bugzilla.redhat.com/show_bug.cgi?id=657812
@@ -922,10 +919,9 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}beta3
+%setup -q -n php-%{version}RC1
 
 %patch7 -p1 -b .recode
-%patch42 -p1 -b .systzdata
 %patch43 -p1 -b .phpize
 %patch100 -p1 -b .cpanelmailheader
 %patch101 -p1 -b .disablezts
@@ -984,8 +980,8 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}beta3"; then
-   : Error: Upstream PHP version is now ${pver}, expecting %{version}beta3.
+if test "x${pver}" != "x%{version}RC1"; then
+   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC1.
    : Update the version macros and rebuild.
    exit 1
 fi
@@ -1128,7 +1124,6 @@ ln -sf ../configure
     --with-kerberos \
     --enable-shmop \
     --with-libxml-dir=%{_root_prefix} \
-    --with-system-tzdata \
     --with-mhash \
 %if %{with_dtrace}
     --enable-dtrace \
@@ -1322,9 +1317,9 @@ unset NO_INTERACTION REPORT_EXIT_STATUS MALLOC_CHECK_
 
 # Make the eaphp## symlinks
 install -d $RPM_BUILD_ROOT/usr/local/bin
-ln -sf /opt/cpanel/ea-php71/root/usr/bin/php $RPM_BUILD_ROOT/usr/local/bin/ea-php71
+ln -sf /opt/cpanel/ea-php72/root/usr/bin/php $RPM_BUILD_ROOT/usr/local/bin/ea-php72
 install -d $RPM_BUILD_ROOT/usr/bin
-ln -sf /opt/cpanel/ea-php71/root/usr/bin/php-cgi $RPM_BUILD_ROOT/usr/bin/ea-php71
+ln -sf /opt/cpanel/ea-php72/root/usr/bin/php-cgi $RPM_BUILD_ROOT/usr/bin/ea-php72
 
 %if %{with_embed}
 # Install the version for embedded script language in applications + php_embed.h
@@ -1647,8 +1642,8 @@ fi
 %defattr(-,root,root)
 %{_bindir}/php
 # Add the ea-php## symlinks
-/usr/bin/ea-php71
-/usr/local/bin/ea-php71
+/usr/bin/ea-php72
+/usr/local/bin/ea-php72
 %{_bindir}/php-cgi
 %{_bindir}/phar.phar
 %{_bindir}/phar
@@ -1772,6 +1767,11 @@ fi
 
 
 %changelog
+* Thu Aug 31 2017 <dan@cpanel.net> - 7.2.0-1.RC1
+- EA-6757: Update 7.2.0 from beta3 to RC1
+- fix version specific symlinks
+- remove TZ patch for now (EA-6764 may re-add a version of it)
+
 * Wed Aug 30 2017 Dan Muey <dan@cpanel.net> - 7.2.0-2.beta3
 - ZC-2827: Fix SRPM scl definition (thank you to JoyceBabu for bringing this to our attention)
 

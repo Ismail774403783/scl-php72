@@ -182,7 +182,9 @@ Patch105: php-7.0.x-fpm-jailshell.patch
 # Revert changes for pcre < 8.34
 #Patch301: php-7.0.0-oldpcre.centos.patch
 
-
+# RC1 bug https://bugs.php.net/bug.php?id=75149
+# remove me when we update form this RC1:
+Patch106: php-7.2.0RC1.bug-75149_remove_on_next_update.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -928,6 +930,7 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+%patch106 -p1 -b .RC1bug75149
 
 # Deal with autoconf causing build errors
 perl -pi -e 's{2\.64}{2\.63}' build/ax_check_compile_flag.m4
@@ -1771,6 +1774,7 @@ fi
 - EA-6757: Update 7.2.0 from beta3 to RC1
 - fix version specific symlinks
 - remove TZ patch for now (EA-6764 may re-add a version of it)
+- Add patch to fix RC1 bug  https://bugs.php.net/bug.php?id=75149 until the next version
 
 * Wed Aug 30 2017 Dan Muey <dan@cpanel.net> - 7.2.0-2.beta3
 - ZC-2827: Fix SRPM scl definition (thank you to JoyceBabu for bringing this to our attention)

@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1.RC1
+%define release_prefix 3.RC1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1770,7 +1770,7 @@ fi
 
 
 %changelog
-* Thu Aug 31 2017 <dan@cpanel.net> - 7.2.0-1.RC1
+* Thu Aug 31 2017 <dan@cpanel.net> - 7.2.0-3.RC1
 - EA-6757: Update 7.2.0 from beta3 to RC1
 - fix version specific symlinks
 - remove TZ patch for now (EA-6764 may re-add a version of it)

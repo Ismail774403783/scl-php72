@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3.RC1
+%define release_prefix 1.RC3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -150,7 +150,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}RC1.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}RC3.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -181,10 +181,6 @@ Patch105: php-7.0.x-fpm-jailshell.patch
 #Patch300: php-5.6.3-datetests.centos.patch
 # Revert changes for pcre < 8.34
 #Patch301: php-7.0.0-oldpcre.centos.patch
-
-# RC1 bug https://bugs.php.net/bug.php?id=75149
-# remove me when we update form this RC1:
-Patch106: php-7.2.0RC1.bug-75149_remove_on_next_update.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -921,7 +917,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}RC1
+%setup -q -n php-%{version}RC3
 
 %patch7 -p1 -b .recode
 %patch43 -p1 -b .phpize
@@ -930,10 +926,10 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
-%patch106 -p1 -b .RC1bug75149
 
 # Deal with autoconf causing build errors
-perl -pi -e 's{2\.64}{2\.63}' build/ax_check_compile_flag.m4
+perl -pi -e 's{2\.64}{2\.63}' build/ax_check_compile_flag.m4 build/buildcheck.sh
+perl -pi -e 's/-lt "64"/-lt "63"/' build/buildcheck.sh
 
 # Fixes for tests
 #%patch300 -p1 -b .datetests
@@ -983,8 +979,8 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}RC1"; then
-   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC1.
+if test "x${pver}" != "x%{version}RC3"; then
+   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC3.
    : Update the version macros and rebuild.
    exit 1
 fi
@@ -1770,6 +1766,9 @@ fi
 
 
 %changelog
+* Mon Oct 02 2017  <dan@cpanel.net> - 7.2.0-1.RC3
+- EA-6857: Update 7.2.0 from RC1 to RC3
+
 * Thu Aug 31 2017 <dan@cpanel.net> - 7.2.0-3.RC1
 - EA-6757: Update 7.2.0 from beta3 to RC1
 - fix version specific symlinks

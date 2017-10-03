@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 6.RC3
+%define release_prefix 7.RC3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -172,7 +172,7 @@ Patch7: php-5.3.0-recode.centos.patch
 Patch43: php-5.4.0-phpize.centos.patch
 
 # cPanel patches
-Patch100: php-7.x-mail-header.cpanel.patch
+Patch100: php-7.2.x-mail-header.cpanel.patch
 Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 Patch104: php-7.0.x-fpm-user-ini-docroot.patch
@@ -1769,6 +1769,9 @@ fi
 
 
 %changelog
+* Tue Oct 14 2017 <cory@cpanel.net> - 7.2.0-7.RC3
+- EA-4653: Update mail header patch for PHP 7.2
+
 * Fri Oct 13 2017 Tim Mullin <tim@cpanel.net> - 7.2.0-6.RC3
 - HB-2873: Added network-online.target to "After" in the service file
 

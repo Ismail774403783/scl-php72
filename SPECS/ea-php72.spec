@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4.RC3
+%define release_prefix 5.RC3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -926,6 +926,9 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+
+# 7.2 does not need this for tidy even thought the instructions say to do it, weird ...
+# sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
 
 # Deal with autoconf causing build errors
 perl -pi -e 's{2\.64}{2\.63}' build/ax_check_compile_flag.m4 build/buildcheck.sh
@@ -1766,6 +1769,9 @@ fi
 
 
 %changelog
+* Mon Oct 09 2017 Dan Muey <dan@cpanel.net> - - 7.2.0-5.RC3
+- EA-6819: Patch to support libtidy 5.4.0
+
 * Mon Oct 02 2017  <dan@cpanel.net> - 7.2.0-4.RC3
 - EA-6857: Update 7.2.0 from RC1 to RC3
 

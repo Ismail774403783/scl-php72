@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 7.RC3
+%define release_prefix 8.RC3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1769,6 +1769,9 @@ fi
 
 
 %changelog
+* Wed Oct 18 2017 Dan Muey <dan@cpanel.net> - 7.2.0-8.RC3
+- EA-6866: Update mail-header patch for segfaults under Apache
+
 * Tue Oct 14 2017 <cory@cpanel.net> - 7.2.0-7.RC3
 - EA-4653: Update mail header patch for PHP 7.2
 

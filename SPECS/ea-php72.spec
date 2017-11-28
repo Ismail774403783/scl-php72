@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 9.RC5
+%define release_prefix 11.RC6
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -150,7 +150,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}RC5.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}RC6.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -186,7 +186,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: bzip2-devel, %{ns_name}-libcurl, %{ns_name}-libcurl-devel, %{db_devel}
 BuildRequires: pam-devel
-BuildRequires: libstdc++-devel, openssl-devel, scl-utils-build
+BuildRequires: libstdc++-devel,ea-openssl,  ea-openssl-devel, scl-utils-build
 %if %{with_sqlite3}
 # For SQLite3 extension
 BuildRequires: sqlite-devel >= 3.6.0
@@ -519,7 +519,7 @@ License: PHP
 Provides: %{?scl_prefix}php-imap%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}libc-client%{?_isa}
-BuildRequires: krb5-devel%{?_isa}, openssl-devel%{?_isa}
+BuildRequires: krb5-devel%{?_isa},ea-openssl,  ea-openssl-devel%{?_isa}
 BuildRequires: %{?scl_prefix}libc-client-devel%{?_isa}
 Conflicts: %{?scl_prefix}php-recode = %{version}-%{release}
 
@@ -534,7 +534,7 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-BuildRequires: cyrus-sasl-devel, openldap-devel, openssl-devel
+BuildRequires: cyrus-sasl-devel, openldap-devel,ea-openssl,  ea-openssl-devel
 
 %description ldap
 The %{?scl_prefix}php-ldap package adds Lightweight Directory Access Protocol (LDAP)
@@ -604,7 +604,7 @@ License: PHP
 Requires: %{?scl_prefix}php-pdo%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php_database = %{version}-%{release}
 Provides: %{?scl_prefix}php-pdo_pgsql = %{version}-%{release}, %{?scl_prefix}php-pdo_pgsql%{?_isa} = %{version}-%{release}
-BuildRequires: krb5-devel, openssl-devel, postgresql-devel
+BuildRequires: krb5-devel,ea-openssl,  ea-openssl-devel, postgresql-devel
 
 %description pgsql
 The %{?scl_prefix}php-pgsql package add PostgreSQL database support to PHP.
@@ -917,7 +917,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}RC5
+%setup -q -n php-%{version}RC6
 
 %patch7 -p1 -b .recode
 %patch43 -p1 -b .phpize
@@ -982,8 +982,8 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}RC5"; then
-   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC5.
+if test "x${pver}" != "x%{version}RC6"; then
+   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC6.
    : Update the version macros and rebuild.
    exit 1
 fi
@@ -1114,7 +1114,7 @@ ln -sf ../configure
     --with-gettext \
     --with-iconv \
     --with-jpeg-dir=%{_root_prefix} \
-    --with-openssl \
+    --with-openssl=/opt/cpanel/ea-openssl --with-openssl-dir=/opt/cpanel/ea-openssl \
 %if %{with_pcre}
     --with-pcre-regex=%{_root_prefix} \
 %endif
@@ -1769,6 +1769,12 @@ fi
 
 
 %changelog
+* Mon Nov 27 2017 <cory@cpanel.net> - 7.2.0-11.RC6
+-EA-3099: Update 7.2.0 from RC5 to RC6
+
+* Mon Nov 06 2017 <dan@cpanel.net> - 7.2.0-10.RC5
+- EA-6812: build PHP against ea-openssl like Apache
+
 * Fri Oct 27 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.2.0-9.RC5
 - EA-6923: Update 7.2.0 from RC3 to RC5
 

@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 11.RC6
+%define release_prefix 12
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -150,7 +150,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}RC6.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -917,7 +917,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}RC6
+%setup -q -n php-%{version}
 
 %patch7 -p1 -b .recode
 %patch43 -p1 -b .phpize
@@ -982,8 +982,8 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}RC6"; then
-   : Error: Upstream PHP version is now ${pver}, expecting %{version}RC6.
+if test "x${pver}" != "x%{version}"; then
+   : Error: Upstream PHP version is now ${pver}, expecting %{version}.
    : Update the version macros and rebuild.
    exit 1
 fi
@@ -1769,8 +1769,11 @@ fi
 
 
 %changelog
+* Mon Dec 04 2017 <cory@cpanel.net> - 7.2.0-12
+- EA-6992: Update 7.2.0 dropping from RC status
+
 * Mon Nov 27 2017 <cory@cpanel.net> - 7.2.0-11.RC6
--EA-3099: Update 7.2.0 from RC5 to RC6
+- EA-3099: Update 7.2.0 from RC5 to RC6
 
 * Mon Nov 06 2017 <dan@cpanel.net> - 7.2.0-10.RC5
 - EA-6812: build PHP against ea-openssl like Apache

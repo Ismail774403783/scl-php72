@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 12
+%define release_prefix 13
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -183,6 +183,7 @@ Patch105: php-7.0.x-fpm-jailshell.patch
 #Patch301: php-7.0.0-oldpcre.centos.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch106: php-7.2.0-systzdata-v15.patch
 
 BuildRequires: bzip2-devel, %{ns_name}-libcurl, %{ns_name}-libcurl-devel, %{db_devel}
 BuildRequires: pam-devel
@@ -926,6 +927,7 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+%patch106 -p1 -b .systzdata
 
 # 7.2 does not need this for tidy even thought the instructions say to do it, weird ...
 # sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
@@ -1769,6 +1771,9 @@ fi
 
 
 %changelog
+* Wed Dec 06 2017 <dan@cpanel.net> - 7.2.0-13
+- EA-6764: Add back systzdata now that they have a 7.2 version
+
 * Mon Dec 04 2017 <cory@cpanel.net> - 7.2.0-12
 - EA-6992: Update 7.2.0 dropping from RC status
 

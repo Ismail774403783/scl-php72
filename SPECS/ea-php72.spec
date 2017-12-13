@@ -1128,6 +1128,7 @@ ln -sf ../configure
     --with-kerberos \
     --enable-shmop \
     --with-libxml-dir=%{_root_prefix} \
+    --with-system-tzdata \
     --with-mhash \
 %if %{with_dtrace}
     --enable-dtrace \

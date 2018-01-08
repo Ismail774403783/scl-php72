@@ -139,9 +139,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.2.0
+Version:  7.2.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 13
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1772,6 +1772,9 @@ fi
 
 
 %changelog
+* Fri Jan 05 2018 Jacob Perkins <jacob.perkins@cpanel.net> - 7.2.1-1
+- Updated to version 7.2.1 via update_pkg.pl (EA-7074)
+
 * Wed Dec 06 2017 <dan@cpanel.net> - 7.2.0-13
 - EA-6764: Add back systzdata now that they have a 7.2 version
 

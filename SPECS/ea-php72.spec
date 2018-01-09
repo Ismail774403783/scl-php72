@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -177,6 +177,7 @@ Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 Patch104: php-7.0.x-fpm-user-ini-docroot.patch
 Patch105: php-7.0.x-fpm-jailshell.patch
+Patch200: php-fpm.epoll.patch
 # Factory is droped from system tzdata
 #Patch300: php-5.6.3-datetests.centos.patch
 # Revert changes for pcre < 8.34
@@ -928,6 +929,7 @@ inside them.
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
 %patch106 -p1 -b .systzdata
+%patch200 -p1 -b .fpmepoll
 
 # 7.2 does not need this for tidy even thought the instructions say to do it, weird ...
 # sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
@@ -1772,6 +1774,9 @@ fi
 
 
 %changelog
+* Tue Jan 09 2018 <julian.brown@cpanel.net> - 7.2.1-2
+- HB-3061: Fix epoll bug.
+
 * Fri Jan 05 2018 Jacob Perkins <jacob.perkins@cpanel.net> - 7.2.1-1
 - Updated to version 7.2.1 via update_pkg.pl (EA-7074)
 

@@ -139,9 +139,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.2.1
+Version:  7.2.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 5
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1774,6 +1774,9 @@ fi
 
 
 %changelog
+* Fri Feb 02 2018 Daniel Muey <dan@cpanel.net> - 7.2.2-1
+- Updated to version 7.2.2 via update_pkg.pl (EA-7208)
+
 * Fri Jan 19 2018 <darren@cpanel.net> - 7.2.1-5
 - HB-3287: Increase open file limit for php-fpm by default
 

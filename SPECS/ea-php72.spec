@@ -165,26 +165,22 @@ Source51: opcache-default.blacklist
 
 # Allow us to configure imap and recode at same time, but adjust conflicts
 # to prevent usage at same time.
-Patch7: php-5.3.0-recode.centos.patch
+Patch7: 0001-Modify-recode-to-allow-IMAP-and-recode-to-be-simulta.patch
 
 # Prevent pear package from dragging in devel, which drags in a lot of
 # stuff for a production machine: https://bugzilla.redhat.com/show_bug.cgi?id=657812
-Patch43: php-5.4.0-phpize.centos.patch
+Patch43: 0002-Prevent-PEAR-package-from-bringing-in-devel.patch
 
 # cPanel patches
-Patch100: php-7.2.x-mail-header.cpanel.patch
-Patch101: php-7.x-disable-zts.cpanel.patch
-Patch102: php-7.0.x-ea4-ini.patch
-Patch104: php-7.0.x-fpm-user-ini-docroot.patch
-Patch105: php-7.0.x-fpm-jailshell.patch
-Patch200: php-fpm.epoll.patch
-# Factory is droped from system tzdata
-#Patch300: php-5.6.3-datetests.centos.patch
-# Revert changes for pcre < 8.34
-#Patch301: php-7.0.0-oldpcre.centos.patch
+Patch100: 0003-Modify-standard-mail-extenstion-to-add-X-PHP-Script-.patch
+Patch101: 0004-Removed-ZTS-support.patch
+Patch102: 0005-Ensure-that-php.d-is-not-scanned-when-PHPRC-is-set.patch
+Patch104: 0006-FPM-Ensure-docroot-is-in-the-user-s-homedir.patch
+Patch105: 0007-Chroot-FPM-users-with-noshell-and-jailshell.patch
+Patch200: 0008-Patch-epoll.c-per-bug-report-in-upstream.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch106: php-7.2.0-systzdata-v15.patch
+Patch106: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 
 BuildRequires: bzip2-devel, %{ns_name}-libcurl, %{ns_name}-libcurl-devel, %{db_devel}
 BuildRequires: pam-devel

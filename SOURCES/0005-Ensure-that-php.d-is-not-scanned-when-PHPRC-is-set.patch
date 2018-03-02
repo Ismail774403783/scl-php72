@@ -1,11 +1,12 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jacob Perkins <jacob.perkins@cpanel.net>
 Date: Mon, 13 Jun 2016 22:35:54 -0500
-Subject: [PATCH] Ensure that php.d is not scanned when PHPRC is set 
+Subject: [PATCH 5/9] Ensure that php.d is not scanned when PHPRC is set
 
 Since EasyApache 4 is built with the configuration
-option 'with-config-file-scan-dir', this ensured that php.d was 
+option 'with-config-file-scan-dir', this ensured that php.d was
 read, allowing module configurations to be loaded. It resulted
-in customer configurations not being overridden with any 
+in customer configurations not being overridden with any
 situations where PHPRC is used (primarily suPHP). This patch
 provides EasyApache 3 compatible behaviors when using
 suPHP_ConfigPath, specifically by not scanning php.d when
@@ -15,7 +16,7 @@ PHPRC is set. (EA-4422)
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/main/php_ini.c b/main/php_ini.c
-index 7b03750..6e80315 100644
+index ba58eb11..faacdd9e 100644
 --- a/main/php_ini.c
 +++ b/main/php_ini.c
 @@ -650,7 +650,15 @@ int php_init_config(void)

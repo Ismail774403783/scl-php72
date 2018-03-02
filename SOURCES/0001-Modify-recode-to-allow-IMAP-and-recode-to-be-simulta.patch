@@ -1,6 +1,17 @@
-diff -up php-5.3.0beta1/ext/recode/config9.m4.recode php-5.3.0beta1/ext/recode/config9.m4
---- php-5.3.0beta1/ext/recode/config9.m4.recode	2008-12-02 00:30:21.000000000 +0100
-+++ php-5.3.0beta1/ext/recode/config9.m4	2009-02-28 09:46:50.000000000 +0100
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Cory McIntire <cory@cpanel.net>
+Date: Fri, 2 Mar 2018 11:01:25 -0600
+Subject: [PATCH 1/9] Modify recode to allow IMAP and recode to be
+ simultaneously used
+
+---
+ ext/recode/config9.m4 | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/ext/recode/config9.m4 b/ext/recode/config9.m4
+index 66df50e2..4a3cd547 100644
+--- a/ext/recode/config9.m4
++++ b/ext/recode/config9.m4
 @@ -4,13 +4,6 @@ dnl
  
  dnl Check for extensions with which Recode can not work

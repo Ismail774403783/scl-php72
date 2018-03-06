@@ -141,7 +141,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -184,6 +184,7 @@ Patch106: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 
 BuildRequires: bzip2-devel, %{ns_name}-libcurl, %{ns_name}-libcurl-devel, %{db_devel}
 BuildRequires: pam-devel
+Requires: ea-openssl
 BuildRequires: libstdc++-devel,ea-openssl,  ea-openssl-devel, scl-utils-build
 %if %{with_sqlite3}
 # For SQLite3 extension
@@ -517,6 +518,7 @@ License: PHP
 Provides: %{?scl_prefix}php-imap%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}libc-client%{?_isa}
+Requires: ea-openssl
 BuildRequires: krb5-devel%{?_isa},ea-openssl,  ea-openssl-devel%{?_isa}
 BuildRequires: %{?scl_prefix}libc-client-devel%{?_isa}
 Conflicts: %{?scl_prefix}php-recode = %{version}-%{release}
@@ -532,6 +534,7 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
+Requires: ea-openssl
 BuildRequires: cyrus-sasl-devel, openldap-devel,ea-openssl,  ea-openssl-devel
 
 %description ldap
@@ -602,6 +605,7 @@ License: PHP
 Requires: %{?scl_prefix}php-pdo%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php_database = %{version}-%{release}
 Provides: %{?scl_prefix}php-pdo_pgsql = %{version}-%{release}, %{?scl_prefix}php-pdo_pgsql%{?_isa} = %{version}-%{release}
+Requires: ea-openssl
 BuildRequires: krb5-devel,ea-openssl,  ea-openssl-devel, postgresql-devel
 
 %description pgsql
@@ -1770,6 +1774,9 @@ fi
 
 
 %changelog
+* Tue Mar 06 2018 Daniel Muey <dan@cpanel.net> - 7.2.3-2
+- ZC-3475: Update for ea-openssl shared object
+
 * Thu Mar 01 2018 Daniel Muey <dan@cpanel.net> - 7.2.3-1
 - Updated to version 7.2.3 via update_pkg.pl (EA-7289)
 

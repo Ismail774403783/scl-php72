@@ -133,8 +133,8 @@
 %global db_devel  libdb-devel
 %endif
 
-%define ea_openssl_ver 1.0.2n-3
-%define ea_libcurl_ver 7.58.0-5
+%define ea_openssl_ver 1.0.2o-2
+%define ea_libcurl_ver 7.59.0-2
 
 Summary:  PHP scripting language for creating dynamic web sites
 %if %{with_httpd}
@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.4
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -154,6 +154,7 @@ Group:    Development/Languages
 URL:      http://www.php.net/
 
 Source0: http://www.php.net/distributions/php-%{version}.tar.bz2
+Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-7.1.tgz
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -245,7 +246,7 @@ Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}
 
 %description
 %if %{with_httpd}
-Package that installs Apache's mod_php DSO module for PHP 7.1
+Package that installs Apache`s mod_php DSO module for PHP 7.1
 %else
 PHP is an HTML-embedded scripting language. PHP attempts to make it
 easy for developers to write dynamically generated web pages. PHP also
@@ -959,6 +960,14 @@ cp ext/mbstring/ucgendat/OPENLDAP_LICENSE ucgendat_LICENSE
 cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
 cp ext/phar/LICENSE phar_LICENSE
 cp ext/bcmath/libbcmath/COPYING.LIB libbcmath_COPYING
+
+%if %{with_lsws}
+# Remove the bundled version of litespeed
+# and replace it with the latest version
+cd sapi
+tar -xvf %{SOURCE1} --exclude=Makefile.frag --exclude=config.m4
+cd ..
+%endif
 
 # Multiple builds for multiple SAPIs
 mkdir \
@@ -1779,10 +1788,16 @@ fi
 
 
 %changelog
+* Wed Apr 18 2018 Rishwanth Yeddula <rish@cpanel.net> - 7.2.4-3
+- ZC-3605: Update litespeed to the latest version (7.1).
+
+* Mon Apr 16 2018 Rishwanth Yeddula <rish@cpanel.net> - 7.2.4-2
+- EA-7382: Update dependency on ea-openssl to require the latest version with versioned symbols.
+
 * Mon Apr 02 2018 Daniel Muey <dan@cpanel.net> - 7.2.4-1
 - EA-7343: Update to v7.2.4, drop v7.2.3
 
-* Mon Mar 20 2018 Cory McIntire <cory@cpanel.net> - 7.2.3-3
+* Tue Mar 20 2018 Cory McIntire <cory@cpanel.net> - 7.2.3-3
 - ZC-3552: Added versioning to ea-openssl and ea-libcurl requirements.
 
 * Tue Mar 06 2018 Daniel Muey <dan@cpanel.net> - 7.2.3-2
@@ -1827,7 +1842,7 @@ fi
 * Wed Oct 18 2017 Dan Muey <dan@cpanel.net> - 7.2.0-8.RC3
 - EA-6866: Update mail-header patch for segfaults under Apache
 
-* Tue Oct 14 2017 <cory@cpanel.net> - 7.2.0-7.RC3
+* Sat Oct 14 2017 <cory@cpanel.net> - 7.2.0-7.RC3
 - EA-4653: Update mail header patch for PHP 7.2
 
 * Fri Oct 13 2017 Tim Mullin <tim@cpanel.net> - 7.2.0-6.RC3

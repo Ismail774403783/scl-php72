@@ -6,15 +6,15 @@ Subject: [PATCH 7/9] Chroot FPM users with noshell and jailshell
 Case CPANEL-7016: This change will cause PHP-FPM to jail FPM users
 if their shells are set to noshell or jailshell no matter what.
 ---
- sapi/fpm/fpm/fpm_conf.c |  3 ++-
- sapi/fpm/fpm/fpm_unix.c | 69 +++++++++++++++++++++++++++++++++++++++++++++++++
+ sapi/fpm/fpm/fpm_conf.c |  3 +-
+ sapi/fpm/fpm/fpm_unix.c | 69 +++++++++++++++++++++++++++++++++++++++++
  2 files changed, 71 insertions(+), 1 deletion(-)
 
 diff --git a/sapi/fpm/fpm/fpm_conf.c b/sapi/fpm/fpm/fpm_conf.c
-index 8ab120a4..a891554c 100644
+index 42ee60b3..612881a3 100644
 --- a/sapi/fpm/fpm/fpm_conf.c
 +++ b/sapi/fpm/fpm/fpm_conf.c
-@@ -1026,7 +1026,8 @@ static int fpm_conf_process_all_pools() /* {{{ */
+@@ -1027,7 +1027,8 @@ static int fpm_conf_process_all_pools() /* {{{ */
  
  				spprintf(&buf, 0, "%s/%s", wp->config->chroot, wp->config->chdir);
  
@@ -25,10 +25,10 @@ index 8ab120a4..a891554c 100644
  					efree(buf);
  					return -1;
 diff --git a/sapi/fpm/fpm/fpm_unix.c b/sapi/fpm/fpm/fpm_unix.c
-index 6089e310..db9877c5 100644
+index 1539c07b..44a3cb99 100644
 --- a/sapi/fpm/fpm/fpm_unix.c
 +++ b/sapi/fpm/fpm/fpm_unix.c
-@@ -12,6 +12,7 @@
+@@ -11,6 +11,7 @@
  #include <sys/types.h>
  #include <pwd.h>
  #include <grp.h>
@@ -36,7 +36,7 @@ index 6089e310..db9877c5 100644
  
  #ifdef HAVE_PRCTL
  #include <sys/prctl.h>
-@@ -351,6 +352,74 @@ int fpm_unix_init_child(struct fpm_worker_pool_s *wp) /* {{{ */
+@@ -350,6 +351,74 @@ int fpm_unix_init_child(struct fpm_worker_pool_s *wp) /* {{{ */
  		}
  	}
  

@@ -5,8 +5,8 @@ Subject: [PATCH 9/9] Add support for use of the system timezone database
 
 Source: Modified upstream Fedora patch for 7.2
 ---
- ext/date/lib/parse_tz.c | 536 +++++++++++++++++++++++++++++++++++++++++++++++-
- ext/date/lib/timelib.m4 |  13 ++
+ ext/date/lib/parse_tz.c | 536 +++++++++++++++++++++++++++++++++++++++-
+ ext/date/lib/timelib.m4 |  13 +
  2 files changed, 546 insertions(+), 3 deletions(-)
 
 diff --git a/ext/date/lib/parse_tz.c b/ext/date/lib/parse_tz.c

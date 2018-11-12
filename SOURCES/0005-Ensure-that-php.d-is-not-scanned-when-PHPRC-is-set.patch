@@ -16,10 +16,10 @@ PHPRC is set. (EA-4422)
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/main/php_ini.c b/main/php_ini.c
-index ba58eb11..faacdd9e 100644
+index fca263e5..30c6c683 100644
 --- a/main/php_ini.c
 +++ b/main/php_ini.c
-@@ -650,7 +650,15 @@ int php_init_config(void)
+@@ -654,7 +654,15 @@ int php_init_config(void)
  	php_ini_scanned_path_len = (int)strlen(php_ini_scanned_path);
  
  	/* Scan and parse any .ini files found in scan path if path not empty. */

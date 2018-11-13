@@ -15,7 +15,7 @@ following reasons:
  1 file changed, 11 deletions(-)
 
 diff --git a/sapi/apache2handler/config.m4 b/sapi/apache2handler/config.m4
-index 2e64b215..ec4799fa 100644
+index 88791408..093f7212 100644
 --- a/sapi/apache2handler/config.m4
 +++ b/sapi/apache2handler/config.m4
 @@ -116,17 +116,6 @@ if test "$PHP_APXS2" != "no"; then

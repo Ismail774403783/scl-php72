@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.14
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -190,6 +190,9 @@ BuildRequires: bzip2-devel, %{ns_name}-libcurl >= %{ea_libcurl_ver}, %{ns_name}-
 BuildRequires: pam-devel
 Requires: ea-openssl >= %{ea_openssl_ver}
 BuildRequires: libstdc++-devel, ea-openssl >= %{ea_openssl_ver}, ea-openssl-devel >= %{ea_openssl_ver}, scl-utils-build
+# For Argon2 support
+BuildRequires: ea-libargon2-devel
+Requires: ea-libargon2
 %if %{with_sqlite3}
 # For SQLite3 extension
 BuildRequires: sqlite-devel >= 3.6.0
@@ -1123,6 +1126,7 @@ ln -sf ../configure
     --with-config-file-path=%{_sysconfdir} \
     --with-config-file-scan-dir=%{_sysconfdir}/php.d \
     --disable-debug \
+    --with-password-argon2=/opt/cpanel/libargon2 \
     --with-pic \
     --without-pear \
     --with-bz2 \
@@ -1795,6 +1799,9 @@ fi
 
 
 %changelog
+* Tue Jan 29 2019 Tim Mullin <tim@cpanel.net> - 7.2.14-3
+- EA-7397: Compile with Argon2 support
+
 * Fri Jan 25 2019 Cory McIntire <cory@cpanel.net> - 7.2.14-2
 - EA-8170: Update litespeed to the latest version (7.2)
 

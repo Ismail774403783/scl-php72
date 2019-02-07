@@ -142,9 +142,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.2.14
+Version:  7.2.15
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1799,6 +1799,9 @@ fi
 
 
 %changelog
+* Thu Feb 07 2019 Cory McIntire <cory@cpanel.net> - 7.2.15-1
+- Updated to version 7.2.15 via update_pkg.pl (EA-8209)
+
 * Tue Jan 29 2019 Tim Mullin <tim@cpanel.net> - 7.2.14-3
 - EA-7397: Compile with Argon2 support
 

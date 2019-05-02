@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 8b472b56086ca6e4190218c73a3ff1525bee3217 Mon Sep 17 00:00:00 2001
 From: Cory McIntire <cory@cpanel.net>
 Date: Fri, 2 Mar 2018 11:44:43 -0600
 Subject: [PATCH 9/9] Add support for use of the system timezone database
@@ -14,7 +14,7 @@ Source: Modified upstream Fedora patch for 7.2
  create mode 100644 ext/date/lib/parse_tz.c.orig
 
 diff --git a/ext/date/config0.m4 b/ext/date/config0.m4
-index e4641565..00dae8b5 100644
+index e464156..00dae8b 100644
 --- a/ext/date/config0.m4
 +++ b/ext/date/config0.m4
 @@ -10,6 +10,19 @@ io.h
@@ -39,7 +39,7 @@ index e4641565..00dae8b5 100644
                   lib/timelib.c lib/tm2unixtime.c lib/unixtime2tm.c lib/parse_iso_intervals.c lib/interval.c"
 diff --git a/ext/date/config0.m4.orig b/ext/date/config0.m4.orig
 new file mode 100644
-index 00000000..e4641565
+index 0000000..e464156
 --- /dev/null
 +++ b/ext/date/config0.m4.orig
 @@ -0,0 +1,42 @@
@@ -86,7 +86,7 @@ index 00000000..e4641565
 +#define timelib_free    efree
 +EOF
 diff --git a/ext/date/lib/parse_tz.c b/ext/date/lib/parse_tz.c
-index 960e5288..79c013fb 100644
+index 960e528..79c013f 100644
 --- a/ext/date/lib/parse_tz.c
 +++ b/ext/date/lib/parse_tz.c
 @@ -25,8 +25,21 @@
@@ -690,7 +690,7 @@ index 960e5288..79c013fb 100644
  		tmp = NULL;
 diff --git a/ext/date/lib/parse_tz.c.orig b/ext/date/lib/parse_tz.c.orig
 new file mode 100644
-index 00000000..960e5288
+index 0000000..960e528
 --- /dev/null
 +++ b/ext/date/lib/parse_tz.c.orig
 @@ -0,0 +1,678 @@
@@ -1372,3 +1372,6 @@ index 00000000..960e5288
 +			return 0;
 +	}
 +}
+-- 
+2.21.0
+

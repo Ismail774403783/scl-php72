@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.18
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -182,6 +182,10 @@ Patch102: 0005-Ensure-that-php.d-is-not-scanned-when-PHPRC-is-set.patch
 Patch104: 0006-FPM-Ensure-docroot-is-in-the-user-s-homedir.patch
 Patch105: 0007-Chroot-FPM-users-with-noshell-and-jailshell.patch
 Patch200: 0008-Patch-epoll.c-per-bug-report-in-upstream.patch
+
+Patch400: 0020-PLESK-sig-block-reexec.patch
+Patch401: 0021-PLESK-avoid-child-ignorance.patch
+Patch402: 0022-PLESK-missed-kill.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch106: 0009-Add-support-for-use-of-the-system-timezone-database.patch
@@ -954,6 +958,10 @@ perl -pi -e 's/-lt "64"/-lt "63"/' build/buildcheck.sh
 #%patch301 -p1 -b .pcre834
 #fi
 #%endif
+
+%patch400 -p1
+%patch401 -p1
+%patch402 -p1
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1799,6 +1807,9 @@ fi
 
 
 %changelog
+* Tue May 07 2019 Julian Brown <julian.brown@cpanel.net> - 7.2.18-2
+- ZC-5062: Add PLESK signal management to PHP-FPM
+
 * Thu May 02 2019 Cory McIntire <cory@cpanel.net> - 7.2.18-1
 - EA-8427: Update scl-php72 from v7.2.17 to v7.2.18
 

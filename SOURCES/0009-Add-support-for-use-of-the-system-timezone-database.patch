@@ -1,7 +1,7 @@
-From 8b472b56086ca6e4190218c73a3ff1525bee3217 Mon Sep 17 00:00:00 2001
+From eded5c0ab5abebac286a98d304a6f4402bb7201f Mon Sep 17 00:00:00 2001
 From: Cory McIntire <cory@cpanel.net>
 Date: Fri, 2 Mar 2018 11:44:43 -0600
-Subject: [PATCH 9/9] Add support for use of the system timezone database
+Subject: [PATCH 09/12] Add support for use of the system timezone database
 
 Source: Modified upstream Fedora patch for 7.2
 ---

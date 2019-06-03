@@ -1,7 +1,7 @@
-From 62ac574f0e9e877a64414464dc22a6fe12611981 Mon Sep 17 00:00:00 2001
+From b23d85be4c3c4d6513976db19f1297363e53eb19 Mon Sep 17 00:00:00 2001
 From: Matt Dees <matt@cpanel.net>
 Date: Fri, 19 Aug 2016 10:10:41 -0500
-Subject: [PATCH 7/9] Chroot FPM users with noshell and jailshell
+Subject: [PATCH 07/12] Chroot FPM users with noshell and jailshell
 
 Case CPANEL-7016: This change will cause PHP-FPM to jail FPM users
 if their shells are set to noshell or jailshell no matter what.

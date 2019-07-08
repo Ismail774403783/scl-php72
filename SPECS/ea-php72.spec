@@ -142,9 +142,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.2.19
+Version:  7.2.20
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -183,12 +183,12 @@ Patch104: 0006-FPM-Ensure-docroot-is-in-the-user-s-homedir.patch
 Patch105: 0007-Chroot-FPM-users-with-noshell-and-jailshell.patch
 Patch200: 0008-Patch-epoll.c-per-bug-report-in-upstream.patch
 
-Patch400: 0020-PLESK-sig-block-reexec.patch
-Patch401: 0021-PLESK-avoid-child-ignorance.patch
-Patch402: 0022-PLESK-missed-kill.patch
-
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch106: 0009-Add-support-for-use-of-the-system-timezone-database.patch
+
+Patch400: 0010-0020-PLESK-sig-block-reexec.patch
+Patch401: 0011-0021-PLESK-avoid-child-ignorance.patch
+Patch402: 0012-0022-PLESK-missed-kill.patch
 
 BuildRequires: bzip2-devel, %{ns_name}-libcurl >= %{ea_libcurl_ver}, %{ns_name}-libcurl-devel >= %{ea_libcurl_ver}, %{db_devel}
 BuildRequires: pam-devel
@@ -959,9 +959,9 @@ perl -pi -e 's/-lt "64"/-lt "63"/' build/buildcheck.sh
 #fi
 #%endif
 
-%patch400 -p1
-%patch401 -p1
-%patch402 -p1
+%patch400 -p1 -b .sigblock
+%patch401 -p1 -b .avoidchildignorance
+%patch402 -p1 -b .missedkill
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1807,6 +1807,9 @@ fi
 
 
 %changelog
+* Fri Jul 05 2019 Cory McIntire <cory@cpanel.net> - 7.2.20-1
+- EA-8560: Update scl-php72 from v7.2.19 to v7.2.20
+
 * Fri Jun 21 2019 Tim Mullin <tim@cpanel.net> - 7.2.19-2
 - EA-8538: Update litespeed from upstream to 7.4
 

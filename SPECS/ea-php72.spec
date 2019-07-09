@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.2.20
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -154,7 +154,7 @@ Group:    Development/Languages
 URL:      http://www.php.net/
 
 Source0: http://www.php.net/distributions/php-%{version}.tar.bz2
-Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-7.4.tgz
+Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-7.4.2.tgz
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -1807,6 +1807,9 @@ fi
 
 
 %changelog
+* Mon Jul 08 2019 Cory McIntire <cory@cpanel.net> - 7.2.20-2
+- EA-8558: Update litespeed from upstream to 7.4.2
+
 * Fri Jul 05 2019 Cory McIntire <cory@cpanel.net> - 7.2.20-1
 - EA-8560: Update scl-php72 from v7.2.19 to v7.2.20
 

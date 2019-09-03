@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From add011d17099a2dc3f4aae898e6219d3f54bd88b Mon Sep 17 00:00:00 2001
 From: Cory McIntire <cory@cpanel.net>
 Date: Fri, 2 Mar 2018 11:03:30 -0600
 Subject: [PATCH 02/12] Prevent PEAR package from bringing in devel
@@ -9,7 +9,7 @@ Source: https://bugzilla.redhat.com/show_bug.cgi?id=657812
  1 file changed, 12 insertions(+)
 
 diff --git a/scripts/phpize.in b/scripts/phpize.in
-index afec191c..3bcd5ab5 100644
+index afec191..3bcd5ab 100644
 --- a/scripts/phpize.in
 +++ b/scripts/phpize.in
 @@ -162,6 +162,15 @@ phpize_autotools()
@@ -44,3 +44,6 @@ index afec191c..3bcd5ab5 100644
       phpize_check_configm4 0
  
       phpize_check_build_files
+-- 
+2.21.0
+

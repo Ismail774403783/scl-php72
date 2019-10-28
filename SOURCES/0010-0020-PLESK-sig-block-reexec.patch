@@ -1,4 +1,4 @@
-From 3c354b0a5a1902f9f0f3573f494c045f2a887eec Mon Sep 17 00:00:00 2001
+From e67038098b104b8d774db424b23855cc0d10d9b2 Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
 Date: Tue, 7 May 2019 12:39:25 -0500
 Subject: [PATCH 10/12] 0020-PLESK-sig-block-reexec
@@ -12,7 +12,7 @@ First of 3 signal managment patches.
  4 files changed, 73 insertions(+)
 
 diff --git a/sapi/fpm/fpm/fpm_main.c b/sapi/fpm/fpm/fpm_main.c
-index 706f59d..8d824c1 100644
+index af050bf..a28fb6e 100644
 --- a/sapi/fpm/fpm/fpm_main.c
 +++ b/sapi/fpm/fpm/fpm_main.c
 @@ -109,6 +109,10 @@ int __riscosify_control = __RISCOSIFY_STRICT_UNIX_SPECS;
